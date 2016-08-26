@@ -1,0 +1,58 @@
+package login;
+
+import java.util.Iterator;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+//import org.testng.annotations.AfterTest;
+import org.testng.annotations.Test;
+
+@Test
+public class Login_data_driven2
+{	
+	WebDriver driver;
+	@SuppressWarnings("unused")
+	public void HEAlogin()	 
+{	
+
+driver = new FirefoxDriver(); 
+driver.get("https://s-c-login.cengage.com/cb/");
+driver.manage().window().maximize();
+driver.findElement(By.id("emailId")).sendKeys("student.tax8@cengage.com");
+driver.findElement(By.id("password")).sendKeys("Cengage1");
+driver.findElement(By.xpath(".//*[@id='loginFormId']/input[3]")).click();
+driver.findElement(By.id("registerAccessCode")).sendKeys("E-84S9YDWP5QG6L");
+driver.findElement(By.xpath(".//*[@id='registerAccessCodeform']/ul/li[2]/a")).click();
+driver.findElement(By.xpath(".//*[@id='apliaContinueForm']/a")).click();
+driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+driver.findElement(By.xpath("//a[contains(@href,'contextId=E-84S9YDWP5QG6L')][text()='Open']")).click();
+driver.findElement(By.xpath("//a[contains(@href,'javascript:openCourseURLAndSubmit()')]")).click();
+Set <String> set1=driver.getWindowHandles();
+Iterator <String> win1=set1.iterator();
+String parent=win1.next();
+String child=win1.next();
+driver.switchTo().window(child);
+driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+driver.findElement(By.xpath("//input[@title='Take']")).click();
+driver.manage().timeouts().implicitlyWait(20,TimeUnit.SECONDS);
+driver.findElement(By.xpath("//input[@title='Start Assignment Now']")).click();
+driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+//driver.findElement(By.xpath(".//*[@id='payLater']/div/a")).click();
+//driver.manage().timeouts().implicitlyWait(120,TimeUnit.SECONDS);
+//driver.findElement(By.cssSelector("span[tabindex='0'][aria-label='Week 7']")).click();
+//driver.findElement(By.xpath("//span[text()='Question Bank 056']")).click();
+//driver.findElement(By.xpath(".//*[@id='overviewTable']/tbody/tr/td[3]/form/ul/li[2]/input")).click();
+//driver.findElement(By.xpath(".//*[@id='content']/ul[2]/li[2]/input")).click();
+
+driver.manage().timeouts().implicitlyWait(120,TimeUnit.SECONDS);
+
+}
+	@AfterTest
+	public void tearDown()
+	{
+	driver.quit();
+	}
+}
